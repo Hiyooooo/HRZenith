@@ -13,7 +13,15 @@ export function isHttpsUrl(url: unknown, maxLen = 500): url is string {
 
   try {
     const parsed = new URL(trimmed);
-    return parsed.protocol === "https:";
+    // Izinkan https, serta http khusus lokal/development (localhost & 127.0.0.1)
+    if (parsed.protocol === "https:") return true;
+    if (
+      parsed.protocol === "http:" &&
+      (parsed.hostname === "localhost" || parsed.hostname === "127.0.0.1")
+    ) {
+      return true;
+    }
+    return false;
   } catch {
     return false;
   }
@@ -71,23 +79,47 @@ export function resolveUrl(
   url: string | null | undefined,
   cleanApiUrl?: string
 ): string {
-  if (!url) return "";
+  if (!url || typeof url !== "string") return "";
   const trimmed = url.trim();
   if (!trimmed) return "";
 
-  if (trimmed.startsWith("/") && cleanApiUrl) {
-    const base = cleanApiUrl.replace(/\/+$/, "");
-    return `${base}${trimmed}`;
-  }
-
+  // Aset lokal Next.js bawaan di folder public (jangan diubah)
   if (
-    cleanApiUrl &&
-    trimmed.includes("localhost:8000") &&
-    !cleanApiUrl.includes("localhost:8000")
+    trimmed === "/favicon.svg" ||
+    trimmed === "/logo.svg" ||
+    trimmed === "/opengraph-image" ||
+    trimmed === "/og-default"
   ) {
-    const base = cleanApiUrl.replace(/\/+$/, "");
-    return trimmed.replace(/https?:\/\/[^/]+/, base);
+    return trimmed;
   }
 
-  return trimmed;
+  if (!cleanApiUrl) {
+    return trimmed;
+  }
+
+  try {
+    const apiOrigin = new URL(cleanApiUrl).origin;
+
+    // Jika alamat relatif (misalnya diawali dengan /storage/ atau storage/)
+    if (trimmed.startsWith("/")) {
+      return `${apiOrigin}${trimmed}`;
+    }
+    if (!trimmed.startsWith("http://") && !trimmed.startsWith("https://")) {
+      return `${apiOrigin}/${trimmed}`;
+    }
+
+    // Jika backend mengirimkan alamat localhost:8000 / 127.0.0.1 padahal API_URL pakai domain/ngrok lain
+    const parsedUrl = new URL(trimmed);
+    const isLocalhostBackend =
+      parsedUrl.hostname === "localhost" || parsedUrl.hostname === "127.0.0.1";
+    const apiHostIsDifferent = new URL(cleanApiUrl).hostname !== parsedUrl.hostname;
+
+    if (isLocalhostBackend && apiHostIsDifferent) {
+      return `${apiOrigin}${parsedUrl.pathname}${parsedUrl.search}`;
+    }
+
+    return trimmed;
+  } catch {
+    return trimmed;
+  }
 }

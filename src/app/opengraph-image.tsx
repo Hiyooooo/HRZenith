@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { getSiteConfig } from "@/lib/cms/get-site-config";
+import { readCmsEnv } from "@/lib/cms/env";
 
 export const alt = "HRZenith: Platform HRIS Enterprise Skala Nasional";
 export const size = { width: 1200, height: 630 };
@@ -8,6 +9,7 @@ export const contentType = "image/png";
 export default async function Image() {
   const config = await getSiteConfig();
   const ogImageUrl = config.seo.ogImageUrl || config.seo.og_image_url;
+  const revalidateSeconds = readCmsEnv().revalidateSeconds;
 
   // 1. Jika ada banner eksternal yang diunggah dari Admin Panel:
   if (ogImageUrl && ogImageUrl.trim() !== "") {
@@ -19,7 +21,7 @@ export default async function Image() {
         return new Response(buffer, {
           headers: {
             "Content-Type": mime,
-            "Cache-Control": "public, max-age=31536000, immutable",
+            "Cache-Control": `public, max-age=${revalidateSeconds}, stale-while-revalidate=${revalidateSeconds}`,
           },
         });
       }
@@ -29,7 +31,14 @@ export default async function Image() {
   }
 
   // 2. Banner visual card bawaan (Enterprise Style)
-  const headline = config.hero.headline || "Tata kelola SDM yang dapat diaudit.";
+  const headline =
+    config.seo.metaTitle ||
+    config.hero.headline ||
+    "Tata kelola SDM yang dapat diaudit.";
+  const subheadline =
+    config.seo.metaDescription ||
+    config.hero.subheadline ||
+    "Platform HRIS Enterprise untuk BUMN, institusi finansial, dan konglomerat berskala nasional & global.";
   const brandColor = config.branding.primaryColor || "#1E3A8A";
 
   return new ImageResponse(
@@ -119,7 +128,7 @@ export default async function Image() {
               marginBottom: "32px",
             }}
           >
-            Platform HRIS Enterprise untuk BUMN, institusi finansial, dan konglomerat berskala nasional & global.
+            {subheadline}
           </div>
 
           {/* Tiga Pilar */}

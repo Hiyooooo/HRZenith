@@ -7,7 +7,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
   site: {
     id: "04-hrzenith",
     name: "HRZenith",
-    domain: "https://hrzenith.id",
+    domain: "hr-zenith.vercel.app",
   },
   branding: {
     logoUrl: null, // Menggunakan komponen Logo lokal jika null

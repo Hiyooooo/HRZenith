@@ -12,7 +12,7 @@ export function getBaseUrl(): string {
   if (process.env.VERCEL_URL) {
     return `https://${process.env.VERCEL_URL}`;
   }
-  return "https://hrzenith.id";
+  return "https://hr-zenith.vercel.app";
 }
 
 export const site = {
