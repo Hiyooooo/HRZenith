@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+:root {
+  /* Brand: DEFAULT. Nilai runtime dari admin panel menimpanya */
+  --brand: #1E3A8A;
+  --primary: var(--brand);
+  --brand-hover: #1A3277;
+  --primary-hover: var(--brand-hover);
+  --brand-tint: #EDEFF6;
+  --primary-tint: var(--brand-tint);
+  --on-brand: #FFFFFF;
+  --on-primary: var(--on-brand);
+
+  /* Permukaan */
+  --canvas: #F3F4F6;
+  --paper: #FFFFFF;
+  --panel: #E9ECF1;
+  --footer: #0B1220;
+  --footer-2: #162033;
+
+  /* Garis */
+  --line: #D1D5DB;
+  --line-2: #9CA3AF;
+  --control: #6B7280;
+
+  /* Teks */
+  --ink: #0F172A;
+  --ink-2: #334155;
+  --steel: #475569;
+  --on-footer: #CBD5E1;
+  --on-footer-2: #94A3B8;
+
+  /* Status */
+  --ok: #166534;
+  --ok-bg: #DCFCE7;
+  --warn: #92400E;
+  --warn-bg: #FEF3C7;
+  --danger: #991B1B;
+  --danger-bg: #FEE2E2;
+
+  /* Pihak ketiga */
+  --wa-green: #25D366;
+}
+
+@theme inline {
+  --color-brand: var(--brand);
+  --color-primary: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-primary-hover: var(--brand-hover);
+  --color-brand-tint: var(--brand-tint);
+  --color-primary-tint: var(--brand-tint);
+  --color-on-brand: var(--on-brand);
+  --color-on-primary: var(--on-brand);
+
+  --color-canvas: var(--canvas);
+  --color-paper: var(--paper);
+  --color-panel: var(--panel);
+  --color-footer: var(--footer);
+  --color-footer-2: var(--footer-2);
+
+  --color-line: var(--line);
+  --color-line-2: var(--line-2);
+  --color-control: var(--control);
+
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-steel: var(--steel);
+  --color-on-footer: var(--on-footer);
+  --color-on-footer-2: var(--on-footer-2);
+
+  --color-ok: var(--ok);
+  --color-ok-bg: var(--ok-bg);
+  --color-warn: var(--warn);
+  --color-warn-bg: var(--warn-bg);
+  --color-danger: var(--danger);
+  --color-danger-bg: var(--danger-bg);
+
+  --color-wa-green: var(--wa-green);
+
+  --font-sans: var(--font-public-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-roboto-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+body {
+  background-color: var(--canvas);
+  color: var(--ink-2);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Fokus ring aksesibel */
+:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* Scrollbar rapi untuk wadah tabel */
+.table-scrollbar::-webkit-scrollbar {
+  height: 6px;
+}
+.table-scrollbar::-webkit-scrollbar-track {
+  background: var(--panel);
+}
+.table-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--line-2);
+  border-radius: 3px;
+}
