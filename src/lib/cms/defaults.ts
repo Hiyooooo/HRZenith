@@ -50,9 +50,9 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
   },
   seo: {
     metaTitle:
-      "HRZenith - Platform HRIS Enterprise untuk Skala Nasional & Global",
+      "HRZenith: Platform HRIS Enterprise Skala Nasional",
     meta_title:
-      "HRZenith - Platform HRIS Enterprise untuk Skala Nasional & Global",
+      "HRZenith: Platform HRIS Enterprise Skala Nasional",
     metaDescription:
       "Standar tertinggi pengelolaan SDM, audit trail perizinan berjenjang, dan integrasi kepatuhan korporasi.",
     meta_description:

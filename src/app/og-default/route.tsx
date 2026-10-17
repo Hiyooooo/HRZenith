@@ -1,7 +1,5 @@
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
-
 export async function GET() {
   return new ImageResponse(
     (
@@ -253,7 +251,7 @@ export async function GET() {
             >
               <span>[11:05] Pengesahan Final HRD (Dewi R.)</span>
               <span style={{ color: "#166534", fontWeight: 700 }}>
-                #fa1c6fc4 ✓
+                #fa1c6fc4 [OK]
               </span>
             </div>
           </div>

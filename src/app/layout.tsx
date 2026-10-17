@@ -26,7 +26,7 @@ const robotoMono = Roboto_Mono({
 
 export async function generateMetadata(): Promise<Metadata> {
   const { seo, branding } = await getSiteConfig();
-  const og = seo.ogImageUrl || "/og-default";
+  const og = seo.ogImageUrl || "/opengraph-image";
 
   return {
     metadataBase: new URL(site.url),
@@ -47,7 +47,7 @@ export async function generateMetadata(): Promise<Metadata> {
           url: og,
           width: 1200,
           height: 630,
-          alt: "HRZenith: Alur persetujuan berjenjang dan audit trail kepatuhan enterprise",
+          alt: "HRZenith: Platform HRIS Enterprise Skala Nasional",
         },
       ],
     },
